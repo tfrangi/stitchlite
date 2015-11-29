@@ -79,3 +79,15 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+
+if (!function_exists('print_d')) {
+
+    function print_d($statement)
+    {
+    	echo '<pre>';
+    	print_r($statement);
+    	echo '</pre>';
+    }
+
+}
