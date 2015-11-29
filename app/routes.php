@@ -20,6 +20,9 @@ Route::any('/api/sync', 'ApiController@sync');
 
 Route::get('api/products', 'ApiController@products');
 
+Route::model('Product', 'Product');
+Route::get('api/products/{Product}', 'ApiController@show');
+
 Route::get('/vend', function()
 {
 	$context = [

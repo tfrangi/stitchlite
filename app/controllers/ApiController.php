@@ -47,4 +47,9 @@ class ApiController extends BaseController {
 		return Product::all();
 	}
 
+	public function show(Product $Product)
+	{
+		return $Product;
+	}
+
 }
