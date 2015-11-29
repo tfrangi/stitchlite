@@ -16,6 +16,8 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+Route::any('/api/sync', 'ApiController@sync');
+
 Route::get('/vend', function()
 {
 	$context = [
