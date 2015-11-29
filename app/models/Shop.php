@@ -17,6 +17,7 @@ class Shop extends BaseModel
 		// foreach (array_flatten(array_fetch($products, 'variants')) as $variant)
 		foreach ($products as $product)
 		{
+			// print_d($product);
 			foreach ($product['variants'] as $variant)
 			{
 				$variants[] = array(
@@ -26,11 +27,12 @@ class Shop extends BaseModel
 						'product_name'=>strtolower($product['handle']),
 						'updated_at'=>new Carbon($variant['updated_at']),
 						'type'=> $this -> short_name,
-						'original'=> array_only($product, ['id', 'title']) + ['variants'=>$variant],
+						'original'=> array_only($product, ['id', 'title']) + ['variant'=>$variant],
 					);
 			}
 		}
-		
+		// print_d($variants);
+		// die();
 		return $variants;  //'DATA' => ['limit' => 5, 'published_status' => 'any']
 
 	}
@@ -67,7 +69,18 @@ class Shop extends BaseModel
 				);
 		}
 		// $products = array_pluck((array)$products, ['handle', 'sku']);
+		// print_d($variants);
+		// die();
 		return $variants;
+	}
+
+	public function pushShopify($param)
+	{
+		print_d($param);
+		$this -> formatCredentials();
+		$sh = App::make('ShopifyAPI', $this -> credentials);
+		$push = $sh->call(['URL' => '/admin/products/'.$param['product']['id'].'.json', 'METHOD' => 'PUT', 'DATA'=>$param]);
+		print_d($push);
 	}
 
 	public function formatCredentials()

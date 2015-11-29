@@ -8,16 +8,17 @@ class ApiController extends BaseController {
 		
 		$variants = $this -> fetch($owner);
 		$updated = $this -> compare($variants);
-		print_d($updated);
-		$this -> push($updated);
+		// print_d($updated);
+		$this -> push($updated, $variants);
 		return 'ok';
 	}
 
-	public function push($updated)
+	public function push($updated, $variants)
 	{
 		foreach ($updated as $Variant)
 		{
-			
+			// print_d($Variant);
+			// $Variant -> tryMerge($variants);
 		}
 	}
 
@@ -36,10 +37,19 @@ class ApiController extends BaseController {
 	public function compare($variants)
 	{
 		$updated = array();
+		// $i = 0;
+		// $tracks = array();
 		foreach ($variants as $variant)
 		{
 			
 			$Product = Product::select('products.*') -> leftJoin('product_shop', 'product_shop.product_id', '=', 'product_shop.shop_id') -> where('products.name', $variant['product_name']) -> first();
+
+			// foreach ($tracks as $track)
+			// {
+			// 	if($variant['sku'] == $track['sku'] && $variant['product_id'])
+			// }
+			// $i++; // I incremente here the counter because of the "continue" few line below
+			
 			if(!empty($Product))
 			{
 				$Variant = Variant::where('sku', $variant['sku']) -> where('product_id', $Product -> id) -> first();
@@ -60,6 +70,7 @@ class ApiController extends BaseController {
 			$Variant -> inventory = $variant['inventory'];
 			$Variant -> product_id = $Product -> id;
 			$Variant -> save();
+			$Variant -> type = $variant['type'];
 			$Variant -> original = $variant['original'];
 			$updated[] = $Variant;
 		}
