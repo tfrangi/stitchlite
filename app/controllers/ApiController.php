@@ -6,7 +6,7 @@ class ApiController extends BaseController {
 	{
 		$owner = 'toto';
 		
-		$Shops = Shop::with('products') -> where('owner', $owner) -> get();
+		$Shops = Shop::where('owner', $owner) -> get();
 		$variants = array();
 		foreach ($Shops as $Shop)
 		{
