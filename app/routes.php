@@ -18,6 +18,8 @@ Route::get('/', function()
 
 Route::any('/api/sync', 'ApiController@sync');
 
+Route::get('api/products', 'ApiController@products');
+
 Route::get('/vend', function()
 {
 	$context = [
