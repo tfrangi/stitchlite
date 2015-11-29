@@ -190,6 +190,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'VendAPI'         => 'VendAPI\VendAPI',
+		'Carbon'          => 'Carbon\Carbon',
 
 	),
 
