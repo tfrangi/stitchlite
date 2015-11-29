@@ -61,11 +61,9 @@ class Shop extends BaseModel
 					'inventory'=> $count,
 					'updated_at'=>$updated_at -> subHours(8)
 				);
-				// array_only($product, ['handle', 'sku']);
 		}
 		// $products = array_pluck((array)$products, ['handle', 'sku']);
 		return $variants;
-		print_d($products);
 	}
 
 	public function formatCredentials()
