@@ -11,6 +11,16 @@ class ApiController extends BaseController {
 		print_d($updated);
 		$this -> push($updated);
 		return 'ok';
+	}
+
+	public function push($updated)
+	{
+		foreach ($updated as $Variant)
+		{
+			
+		}
+	}
+
 	public function fetch($owner)
 	{
 		$Shops = Shop::where('owner', $owner) -> get();
@@ -19,7 +29,6 @@ class ApiController extends BaseController {
 		{
 			$variants = array_merge($variants, $Shop -> fetch());
 		}
-		
 		// print_d($variants);
 		return $variants;
 	}
@@ -51,7 +60,8 @@ class ApiController extends BaseController {
 			$Variant -> inventory = $variant['inventory'];
 			$Variant -> product_id = $Product -> id;
 			$Variant -> save();
-			
+			$Variant -> original = $variant['original'];
+			$updated[] = $Variant;
 		}
 		return $updated;
 	}

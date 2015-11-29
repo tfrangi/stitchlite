@@ -25,6 +25,8 @@ class Shop extends BaseModel
 						'sku'=>$variant['sku'],
 						'product_name'=>strtolower($product['handle']),
 						'updated_at'=>new Carbon($variant['updated_at']),
+						'type'=> $this -> short_name,
+						'original'=> array_only($product, ['id', 'title']) + ['variants'=>$variant],
 					);
 			}
 		}
@@ -59,7 +61,9 @@ class Shop extends BaseModel
 					'price'=>$product['price'],
 					'product_name'=>strtolower($product['handle']),
 					'inventory'=> $count,
-					'updated_at'=>$updated_at -> subHours(8)
+					'updated_at'=>$updated_at -> subHours(8),
+					'type'=> $this -> short_name,
+					'original'=> $products,
 				);
 		}
 		// $products = array_pluck((array)$products, ['handle', 'sku']);
@@ -77,9 +81,9 @@ class Shop extends BaseModel
 		return $this -> belongsToMany('Product');
 	}
 
-	// public function variants()
-	// {
-	// 	return $this -> hasManyThrough('Variant', 'Product');
-	// }
+	public function variants()
+	{
+		return $this -> hasManyThrough('Variant', 'Product');
+	}
 }
 ?>
