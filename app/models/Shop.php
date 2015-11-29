@@ -21,7 +21,7 @@ class Shop extends BaseModel
 			{
 				$variants[] = array(
 						'inventory'=> $variant['inventory_quantity'], 
-						'price'=>(int)$variant['price'],
+						'price'=>$variant['price'],
 						'sku'=>$variant['sku'],
 						'product_name'=>strtolower($product['handle']),
 						'updated_at'=>new Carbon($variant['updated_at']),
