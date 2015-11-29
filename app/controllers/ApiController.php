@@ -6,6 +6,13 @@ class ApiController extends BaseController {
 	{
 		$owner = 'toto';
 		
+		$variants = $this -> fetch($owner);
+		$updated = $this -> compare($variants);
+		print_d($updated);
+		$this -> push($updated);
+		return 'ok';
+	public function fetch($owner)
+	{
 		$Shops = Shop::where('owner', $owner) -> get();
 		$variants = array();
 		foreach ($Shops as $Shop)
@@ -13,6 +20,13 @@ class ApiController extends BaseController {
 			$variants = array_merge($variants, $Shop -> fetch());
 		}
 		
+		// print_d($variants);
+		return $variants;
+	}
+
+	public function compare($variants)
+	{
+		$updated = array();
 		foreach ($variants as $variant)
 		{
 			
@@ -39,7 +53,7 @@ class ApiController extends BaseController {
 			$Variant -> save();
 			
 		}
-		return 'ok';
+		return $updated;
 	}
 
 	public function products()
